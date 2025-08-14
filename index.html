@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ 
+    <title>Home Page</title>
+  </head>
+  <body>
+<div class="container">
+  <div class="header scroll-animate1">
+    <section class="d-flex">
+	 <a href=""><img src="img/mobile_toggle.svg" class="menu"></a>
+	 <a href=""><img src="img/cashkaro_logo_v1.svg" class="logo"></a>
+	 <div class="formbox">
+	 <input type="text" placeholder="Search for any brand or product" class="custinpt" id="searchbox">
+	 <i class="material-icons">search</i>
+     <div class="dropdown" id="dropdownlist">
+	  <a class="dropdown-item">Flight Ticket Cashback</a>
+	   <a class="dropdown-item">Bus Ticket Cashback</a>
+	    <a class="dropdown-item">Hotel Booking Cashback</a>
+	 </div>
+	 </div>
+	   <div class="help">
+	    <a href="" class="hf"><img src="img/balance.png" class="lgsu">₹12,102.4</a>
+	   <a href="" class="hf">Help</a>
+	    <a href="" class="hf1"><img src="img/account_circle.svg" class="lgsu">Profile</a>
+	  </div>
+	</section>
+	
+	</nav>
+  </div>
+  <div class="slider">
+  
+<div class="scroll-wrapper">
+  <div class="arrow left" id="leftArrow">&#10094;</div>
+  
+  <div class="scroller" id="scroller">
+    <div class="item">
+	<img src="img/Banners.png" class="img-fluid">
+	</div>
+    <div class="item"><img src="img/Banners2.png" class="img-fluid"></div>
+    <div class="item"><img src="img/Banners3.png" class="img-fluid"></div>
+    <div class="item"><img src="img/Banners.png" class="img-fluid"></div>
+    <div class="item"><img src="img/Banners2.png" class="img-fluid"></div>
+  </div>
+  <div class="arrow right" id="rightArrow">&#10095;</div>
+</div>
+
+<div class="dots" id="dots"></div>
+  </div>
+ 
+    <div class="tslider">
+  
+<div class="cate-wrapper">
+  
+  <div class="catescr" id="scroller">
+    <div class="cateitem">
+	<img src="img/t1.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+  <div class="cateitem">
+	<img src="img/t2.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t3.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t4.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t5.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t6.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t7.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	<div class="cateitem">
+	<img src="img/t8.png" class="img-fluid">
+	<div class="">
+	 <span class="fnt18">New on CashKaro</span>
+	</div>
+	</div>
+	
+  </div>
+</div>
+
+<div class="dots" id="dots"></div>
+  </div>
+ 
+  
+      
+ 
+</div>
+<script>
+const scroller = document.getElementById('scroller');
+const leftArrow = document.getElementById('leftArrow');
+const rightArrow = document.getElementById('rightArrow');
+const dotsContainer = document.getElementById('dots');
+const items = scroller.querySelectorAll('.item');
+const scrollAmount = 200;
+
+
+scroller.addEventListener('wheel', (e) => {
+  if (window.innerWidth > 768 && scroller.scrollWidth > scroller.clientWidth) {
+    e.preventDefault();
+    scroller.scrollLeft += e.deltaY;
+  }
+}, { passive: false });
+
+
+leftArrow.addEventListener('click', () => {
+  scroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+});
+rightArrow.addEventListener('click', () => {
+  scroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+});
+
+
+function updateArrows() {
+  if (window.innerWidth > 768) {
+    leftArrow.style.display = scroller.scrollLeft > 0 ? 'block' : 'none';
+    rightArrow.style.display =
+      scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth
+        ? 'block'
+        : 'none';
+  }
+}
+scroller.addEventListener('scroll', updateArrows);
+window.addEventListener('resize', updateArrows);
+updateArrows();
+
+function createDots() {
+  dotsContainer.innerHTML = '';
+  items.forEach((_, idx) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    dot.addEventListener('click', () => {
+      const itemWidth = items[0].getBoundingClientRect().width;
+      scroller.scrollTo({ left: idx * itemWidth, behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(dot);
+  });
+}
+
+function updateDots() {
+  if (window.innerWidth <= 768) {
+    const itemWidth = items[0].getBoundingClientRect().width;
+    const index = Math.round(scroller.scrollLeft / itemWidth);
+    dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === index);
+    });
+  }
+}
+
+
+scroller.addEventListener('scroll', updateDots);
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 768) {
+    createDots();
+    updateDots();
+  } else {
+    dotsContainer.innerHTML = '';
+  }
+});
+
+if (window.innerWidth <= 768) {
+  createDots();
+  updateDots();
+}
+</script>
+<script src="script.js"></script>
